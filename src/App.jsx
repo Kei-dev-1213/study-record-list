@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Form } from "./components/Form";
 import { RecordsList } from "./components/RecordsList";
+import { DB } from "./supabase/supabase";
 
 function App() {
 
@@ -10,8 +11,14 @@ function App() {
   const [records, setRecords] = useState([]);
   const [error, setError] = useState("");
 
+  // 初期処理
+  useEffect(() => { (async () => { getAllRecords() })() }, []);
+
+  // 取得
+  const getAllRecords = async () => { setRecords((await DB.getAllRecords()).data) };
+
   // 登録
-  const regist = (e) => {
+  const insertRecord = async (e) => {
     e.preventDefault();
     // チェック
     if (!titleText || !timeText) {
@@ -20,15 +27,19 @@ function App() {
     }
 
     // 登録
-    setRecords(records => [...records, {
-      title: titleText,
-      time: timeText
-    }]);
+    await DB.insertRecord({ title: titleText, time: timeText });
+    await getAllRecords();
 
     // 初期化
     setTitleText("");
     setTimeText("");
     setError("");
+  }
+
+  // 削除
+  const deleteRecord = async (id) => {
+    await DB.deleteRecord(id);
+    await getAllRecords();
   }
 
   return (
@@ -39,10 +50,12 @@ function App() {
         timeText={timeText}
         setTitleText={setTitleText}
         setTimeText={setTimeText}
-        regist={regist}
+        insertRecord={insertRecord}
         error={error} />
 
-      <RecordsList records={records} />
+      <RecordsList
+        records={records}
+        deleteRecord={deleteRecord} />
     </>
   )
 }

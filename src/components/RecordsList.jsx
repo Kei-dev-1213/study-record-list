@@ -1,10 +1,13 @@
-export const RecordsList = ({ records }) => {
+export const RecordsList = ({ records, deleteRecord }) => {
     return (
         <>
             <ul style={{ margin: 0 }}>
-                {records.map(({ title, time }, index) => (
-                    <li key={`${title}_${index}`}>
-                        {`${title} ${time}時間`}
+                {records.map(({ id, title, time }) => (
+                    <li key={id}>
+                        <div>
+                            {`${title} ${time}時間`}
+                            <button onClick={deleteRecord.bind(null, id)}>削除</button>
+                        </div>
                     </li>
                 ))}
             </ul>

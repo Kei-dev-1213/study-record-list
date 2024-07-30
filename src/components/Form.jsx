@@ -1,6 +1,6 @@
-export const Form = ({ regist, titleText, setTitleText, timeText, setTimeText, error }) => {
+export const Form = ({ insertRecord, titleText, setTitleText, timeText, setTimeText, error }) => {
     return (
-        <form onSubmit={regist}>
+        <form onSubmit={insertRecord}>
             学習内容
             <input type="input" value={titleText} onChange={e => setTitleText(e.target.value)} />
             <br />
