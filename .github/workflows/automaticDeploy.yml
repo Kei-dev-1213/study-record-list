@@ -19,6 +19,9 @@ jobs:
 
       - name: Run script
         run: npm run build
+        env:
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
 
   deploy:
     name: deploy
@@ -33,12 +36,8 @@ jobs:
           node-version: "22.5.1"
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
-      - name: login firebase
-        run: ./node_modules/.bin/firebase login:ci --interactive
       - name: Deploy to Firebase Hosting
         run: |
           ./node_modules/.bin/firebase deploy
         env:
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          FIREBASE_CLI_EXPERIMENTS: webframeworks
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
