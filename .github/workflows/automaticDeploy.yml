@@ -25,12 +25,15 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Setup Node.js and cache
         uses: actions/setup-node@v3
         with:
           node-version: "22.5.1"
+
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
+        
       - name: Deploy to Firebase Hosting
         run: |
           ./node_modules/.bin/firebase deploy
