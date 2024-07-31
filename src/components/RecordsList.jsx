@@ -6,7 +6,7 @@ export const RecordsList = ({ records, onClickDelete }) => {
                     <li key={id}>
                         <div>
                             {`${title} ${time}時間`}
-                            <button onClick={onClickDelete.bind(null, id)}>削除</button>
+                            <button onClick={onClickDelete.bind(null, id)}>ああ</button>
                         </div>
                     </li>
                 ))}
