@@ -10,16 +10,25 @@ function App() {
   const [timeText, setTimeText] = useState("");
   const [records, setRecords] = useState([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   // 初期処理
-  useEffect(() => { (async () => { getAllRecords() })() }, []);
+  useEffect(() => {
+    (async () => {
+      await fetchAllRecords()
+      setIsLoading(false);
+    })();
+  }, []);
 
   // 取得
-  const getAllRecords = async () => { setRecords((await DB.getAllRecords()).data) };
+  const fetchAllRecords = async () => {
+    setRecords((await DB.getAllRecords()).data)
+  };
 
   // 登録
-  const insertRecord = async (e) => {
+  const onClickRegist = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     // チェック
     if (!titleText || !timeText) {
       setError("入力されていない項目があります。");
@@ -28,18 +37,21 @@ function App() {
 
     // 登録
     await DB.insertRecord({ title: titleText, time: timeText });
-    await getAllRecords();
+    await fetchAllRecords();
 
     // 初期化
     setTitleText("");
     setTimeText("");
     setError("");
+    setIsLoading(false);
   }
 
   // 削除
-  const deleteRecord = async (id) => {
+  const onClickDelete = async (id) => {
+    setIsLoading(true);
     await DB.deleteRecord(id);
-    await getAllRecords();
+    await fetchAllRecords();
+    setIsLoading(false);
   }
 
   return (
@@ -50,12 +62,16 @@ function App() {
         timeText={timeText}
         setTitleText={setTitleText}
         setTimeText={setTimeText}
-        insertRecord={insertRecord}
+        onClickRegist={onClickRegist}
         error={error} />
 
-      <RecordsList
-        records={records}
-        deleteRecord={deleteRecord} />
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : (
+        <RecordsList
+          records={records}
+          onClickDelete={onClickDelete} />
+      )}
     </>
   )
 }

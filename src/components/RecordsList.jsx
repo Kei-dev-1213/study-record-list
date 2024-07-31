@@ -1,4 +1,4 @@
-export const RecordsList = ({ records, deleteRecord }) => {
+export const RecordsList = ({ records, onClickDelete }) => {
     return (
         <>
             <ul style={{ margin: 0 }}>
@@ -6,7 +6,7 @@ export const RecordsList = ({ records, deleteRecord }) => {
                     <li key={id}>
                         <div>
                             {`${title} ${time}時間`}
-                            <button onClick={deleteRecord.bind(null, id)}>削除</button>
+                            <button onClick={onClickDelete.bind(null, id)}>削除</button>
                         </div>
                     </li>
                 ))}
