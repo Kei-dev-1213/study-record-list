@@ -3,7 +3,7 @@ name: Automatic Deploy
 on: push
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,12 +22,6 @@ jobs:
         env:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-
-  deploy:
-    name: deploy
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Setup Node.js and cache
