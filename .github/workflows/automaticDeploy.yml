@@ -12,7 +12,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22.5.1"
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -29,11 +29,11 @@ jobs:
       - name: Setup Node.js and cache
         uses: actions/setup-node@v3
         with:
-          node-version: "22.5.1"
+          node-version: "20"
 
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
-        
+
       - name: Deploy to Firebase Hosting
         run: |
           ./node_modules/.bin/firebase deploy
