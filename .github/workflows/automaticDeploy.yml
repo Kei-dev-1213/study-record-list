@@ -34,7 +34,7 @@ jobs:
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
       - name: login firebase
-        run: ./node_modules/.bin/firebase login
+        run: ./node_modules/.bin/firebase login --interactive
       - name: Deploy to Firebase Hosting
         run: |
           ./node_modules/.bin/firebase deploy
