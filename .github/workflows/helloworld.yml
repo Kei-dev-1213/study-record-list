@@ -3,7 +3,8 @@ name: Hello World
 on: push
 
 jobs:
-  say_hello:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "Hello World!"
+      - run: bun run build
