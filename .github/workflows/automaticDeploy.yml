@@ -12,7 +12,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
@@ -22,9 +22,6 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
-
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
 
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
