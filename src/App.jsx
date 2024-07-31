@@ -30,8 +30,9 @@ function App() {
     e.preventDefault();
     setIsLoading(true);
     // チェック
-    if (!titleText || !timeText) {
+    if (!titleText.trim() || !timeText.trim()) {
       setError("入力されていない項目があります。");
+      setIsLoading(false);
       return;
     }
 
