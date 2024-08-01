@@ -33,7 +33,7 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: |
-          ./node_modules/.bin/firebase deploy
+          ./node_modules/.bin/firebase deploy --only hosting
 
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
