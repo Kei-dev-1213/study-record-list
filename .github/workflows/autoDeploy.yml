@@ -36,9 +36,8 @@ jobs:
         run: |
           ./node_modules/.bin/firebase deploy
 
-        # env:
-        #   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        #   FIREBASE_CLI_EXPERIMENTS: webframeworks
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
 
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
