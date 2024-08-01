@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Form } from "./components/Form";
 import { RecordsList } from "./components/RecordsList";
-import { DB } from "./supabase/supabase";
+import { DB } from "./supabase";
 
 function App() {
 
