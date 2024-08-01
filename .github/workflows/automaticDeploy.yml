@@ -38,7 +38,7 @@ jobs:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
           VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
-          
+
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
