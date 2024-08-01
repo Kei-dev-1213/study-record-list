@@ -5,6 +5,8 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: ./service-account.json
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
