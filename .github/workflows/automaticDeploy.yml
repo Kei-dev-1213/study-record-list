@@ -19,6 +19,9 @@ jobs:
 
       - name: Run build
         run: bun run build
+        env:
+          VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+          VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
 
       - name: Install firebase-tools
         run: bun install --save-dev firebase-tools
@@ -38,8 +41,6 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_CLI_EXPERIMENTS: webframeworks
-          VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
-          VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
 
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
