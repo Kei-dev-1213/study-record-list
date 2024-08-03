@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  jest-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,4 +20,4 @@ jobs:
         run: bun install
 
       - name: Do Jest test
-        run: bun run test -- --bail --maxWorkers=100% --watchAll=false --coverage
+        run: bun run test -- --coverage
