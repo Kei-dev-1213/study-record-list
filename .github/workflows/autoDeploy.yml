@@ -5,14 +5,11 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
-      VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Bun
         uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
@@ -21,6 +18,13 @@ jobs:
       - name: Run build
         run: bun run build
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+      VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
+    steps:
       - name: Install firebase-tools
         run: bun install --save-dev firebase-tools
 
@@ -35,7 +39,6 @@ jobs:
       - name: Deploy to Firebase Hosting
         run: |
           ./node_modules/.bin/firebase deploy
-
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
 
