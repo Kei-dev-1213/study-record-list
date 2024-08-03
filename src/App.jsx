@@ -15,14 +15,14 @@ function App() {
   // 初期処理
   useEffect(() => {
     (async () => {
-      await fetchAllRecords()
+      await fetchAllRecords();
       setIsLoading(false);
     })();
   }, []);
 
   // 取得
   const fetchAllRecords = async () => {
-    setRecords((await DB.getAllRecords()).data)
+    setRecords((await DB.fetchAllRecords()).data)
   };
 
   // 登録

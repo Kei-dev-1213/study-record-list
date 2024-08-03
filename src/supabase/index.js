@@ -6,7 +6,7 @@ const supabase = createClient(
 );
 
 // 取得
-const getAllRecords = async () => {
+const fetchAllRecords = async () => {
     const records = await supabase.from("study-record").select("*");
     return records;
 }
@@ -29,7 +29,7 @@ const deleteRecord = async (id) => {
 }
 
 export const DB = {
-    getAllRecords,
+    fetchAllRecords,
     insertRecord,
     deleteRecord
 }
