@@ -1,15 +1,18 @@
-name: Github CD
+name: Auto Deploy
 
 on: push
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
+      VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Bun
+      - name: Set up Node.js
         uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
@@ -18,15 +21,6 @@ jobs:
       - name: Run build
         run: bun run build
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install
-
       - name: Install firebase-tools
         run: bun install --save-dev firebase-tools
 
@@ -34,15 +28,13 @@ jobs:
         run: |
           echo "${{ secrets.FIREBASE_KEY }}" | base64 -d > ./firebase-key.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/firebase-key.json" >> $GITHUB_ENV
-
       - name: change space
         run: ./node_modules/.bin/firebase use ${{ secrets.FIREBASE_PROJECT_ID }}
 
       - name: Deploy to Firebase Hosting
-        run: ./node_modules/.bin/firebase deploy
+        run: |
+          ./node_modules/.bin/firebase deploy
         env:
-          VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
-          VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
           FIREBASE_CLI_EXPERIMENTS: webframeworks
 
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
